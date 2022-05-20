@@ -1,0 +1,41 @@
+<mat-toolbar [@secondaryToolbar] fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-icon>business</mat-icon>
+        <span>Anlagen</span>
+    </div>
+</mat-toolbar>
+<div class="p-10" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+    <ng-container *ngIf="plants$ | async as plants">
+        <ng-container *ngIf="plants.length > 0; else noData">
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <button (click)="create()" mat-stroked-button>
+                    <mat-icon>add</mat-icon>
+                    <span>Anlage erstellen</span>
+                </button>
+                <mat-selection-list class="p-10 mat-elevation-z4" [multiple]="false">
+                    <mat-list-option [routerLink]="'/plants/' + plant.id" *ngFor="let plant of plants">
+                        <mat-icon mat-list-icon>business</mat-icon>
+                        <div mat-line>{{plant.name}}</div>
+                        <div mat-line>Fraktionen: {{plant.fractions.length}} </div>
+                        <div mat-line>erstellt am: {{plant.createdOn | date:'MMM dd, yyy HH:mm'}} </div>
+                        <div mat-line>erstellt von: {{plant.createdBy}} </div>
+                        <div mat-line>geändert am: {{plant.modifiedOn | date:'MMM dd, yyy HH:mm'}} </div>
+                        <div mat-line>geändert von: {{plant.modifiedBy}} </div>
+                        <mat-divider></mat-divider>
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-template #noData>
+        <div class="p-10" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <button (click)="create()" mat-stroked-button>
+                <mat-icon>add</mat-icon>
+                <span>Anlage erstellen</span>
+            </button>
+            <img class="p-10" height="200px" src="assets/img/no-data.svg">
+            <div class="mat-body-1">Keine Daten</div>
+        </div>
+
+    </ng-template>
+</div>

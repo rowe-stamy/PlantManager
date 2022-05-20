@@ -1,0 +1,22 @@
+<mat-toolbar [@secondaryToolbar] fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-icon>colorize</mat-icon>
+        <span>Entleerung</span>
+    </div>
+</mat-toolbar>
+<div class="p-10" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+    <div class="p-10">
+        <mat-grid-list [appResponsiveGrid]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}" rowHeight="200px" gutterSize="10px">
+            <mat-grid-tile [routerLink]="'plant/' + element.id" class="mat-elevation-z4 clickable"
+                *ngFor="let element of plants$ | async">
+                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <div [ngStyle]="{'font-size': '3rem'}">
+                        <mat-icon inline="true">business</mat-icon>
+                    </div>
+                    <div class="mat-h2">{{element.name}}</div>
+                    <div class="mat-body-1">fractions: {{element.fractions.length}}</div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>

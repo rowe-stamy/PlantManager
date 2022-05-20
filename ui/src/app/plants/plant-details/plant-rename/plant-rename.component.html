@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Anlage umbenennen</h1>
+<div [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Abbrechen</button>
+    <button (click)="save()" mat-stroked-button cdkFocusInitial>Umbenennen</button>
+</div>

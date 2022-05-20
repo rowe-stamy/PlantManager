@@ -1,0 +1,48 @@
+@use 'sass:map';
+@import "variables";
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0 !important;
+    touch-action: pan-x pan-y;
+}
+
+.p-10 {
+    padding: 10px !important;
+}
+
+.snackbar-success {
+    background: green !important;
+    color: white !important;
+}
+
+.snackbar-success .mat-simple-snackbar-action {
+    color: white !important;
+}
+
+.snackbar-fail {
+    background: mat-color($mat-warn, "main") !important;
+    color: black !important;
+}
+
+.clickable {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.table-container {
+    overflow: auto;
+    table {
+        width: 100%;
+        min-width: 700px !important;
+    }
+}
+
+$tooltipFont: map.get($fontConfig, "body-1");
+.custom-tooltip {
+    font-size: map.get($tooltipFont, "font-size") !important;
+}

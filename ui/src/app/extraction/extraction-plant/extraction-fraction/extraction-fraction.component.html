@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Entleerung aufzeichnen</h1>
+<div [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
+    <div class="mat-body-2">Anlage: {{data.plantName}}</div>
+    <div class="mat-body-2">Fraktion: {{data.fractionId}}</div>
+    <mat-form-field appearance="fill">
+        <mat-label>Gewicht in KG</mat-label>
+        <input matInput type="number" formControlName="weightInKg" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Kommentar</mat-label>
+        <textarea matInput formControlName="comment" rows="3"></textarea>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Abbrechen</button>
+    <button (click)="save()" mat-stroked-button cdkFocusInitial>Aufzeichnen</button>
+</div>

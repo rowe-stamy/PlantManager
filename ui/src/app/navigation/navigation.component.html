@@ -1,0 +1,69 @@
+<mat-sidenav-container class="sidenav-container" fullscreen>
+  <mat-sidenav
+    *ngIf="isHandset$ | async as isHandset"
+    #drawer
+    fixedInViewport
+    [mode]="isHandset.value ? 'over' : 'side'"
+    [opened]="isHandset.value === false"
+  >
+    <mat-toolbar>
+      <mat-toolbar-row fxLayoutAlign="center center">
+        Plant Manager
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-chip-list>
+          <mat-chip>
+            {{ userName$ | async }}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-nav-list class="nav-list">
+      <mat-list-item
+        (click)="closeMenuOnSelection(isHandset.value)"
+        [routerLink]="'extraction'"
+        [routerLinkActive]="['is-menu-item-active']"
+      >
+        <mat-icon>colorize</mat-icon
+        ><span class="navigation-item-label mat-subheading-1">Entleerung</span>
+      </mat-list-item>
+      <mat-list-item
+        (click)="closeMenuOnSelection(isHandset.value)"
+        [routerLink]="'plants'"
+        [routerLinkActive]="['is-menu-item-active']"
+      >
+        <mat-icon>business</mat-icon
+        ><span class="navigation-item-label mat-subheading-1">Anlagen</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngIf="loggedIn" (click)="logout()">
+        <mat-icon>logout</mat-icon
+        ><span class="navigation-item-label mat-subheading-1">Logout</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar
+      *ngIf="(isHandset$ | async)?.value === true"
+      color="primary"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div fxFlex></div>
+    </mat-toolbar>
+    <mat-progress-bar
+      *ngIf="isBusy$ | async"
+      mode="indeterminate"
+      color="primary"
+    ></mat-progress-bar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

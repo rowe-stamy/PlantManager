@@ -1,0 +1,77 @@
+<mat-toolbar [@secondaryToolbar] fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button (click)="location.back()" mat-icon-button>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>Anlage</span>
+    </div>
+    <ng-container *ngIf="(hasChanges$ | async) === true">
+        <div *ngIf="routeId$ | async as plantId" fxLayout="row" fxLayoutGap="10px">
+            <button mat-button (click)="reset()">Reset</button>
+            <button mat-stroked-button (click)="save(plantId)">
+                <mat-icon>save</mat-icon>
+                <span>Save</span>
+            </button>
+        </div>
+    </ng-container>
+</mat-toolbar>
+<div [formGroup]="formGroup" *ngIf="plant$ | async as plant" fxLayout="column" fxLayoutAlign="start stretch"
+    fxLayoutGap="20px" class="p-10">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <mat-card fxFlex fxFlex.gt-xs="75" fxFlex.gt-sm="50">
+            <mat-card-header>
+                <div mat-card-avatar>
+                    <mat-icon>business</mat-icon>
+                </div>
+                <mat-card-title>{{plant.name}}</mat-card-title>
+                <mat-card-subtitle>Anlage</mat-card-subtitle>
+                <div fxFlex></div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="rename(plant)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Name ändern</span>
+                    </button>
+                    <button mat-menu-item>
+                        <mat-icon>delete</mat-icon>
+                        <span>Entfernen</span>
+                    </button>
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-actions fxLayoutAlign="center center">
+                <button mat-stroked-button (click)="addFraction()">
+                    <mat-icon>add</mat-icon>
+                    <span>Fraktion</span>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+
+    <div formArrayName="fractions" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <mat-card *ngFor="let fraction of fractions.controls; let i=index">
+            <mat-card-content>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="mat-h4">Fraction</div>
+                    <button mat-icon-button (click)="removeFraction(i)">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+                </div>
+                <div formGroupName="{{i}}" fxLayout="column" fxLayoutAlign="start stretch">
+                    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0" fxLayoutGap.gt-xs="10px">
+                        <mat-form-field fxFlex.gt-xs="50" appearance="fill">
+                            <mat-label>Id</mat-label>
+                            <input type="text" matInput formControlName="id" required>
+                        </mat-form-field>
+                        <mat-form-field fxFlex.gt-xs="50" appearance="fill">
+                            <mat-label>Charge Id</mat-label>
+                            <input type="text" matInput formControlName="chargeId" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

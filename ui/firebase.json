@@ -1,0 +1,19 @@
+{
+    "hosting": [
+        {
+            "target": "kdpharma",
+            "public": "dist/kdui",
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ]
+        }
+    ]
+}
